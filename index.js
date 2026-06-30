@@ -1,4 +1,4 @@
-const { addonBuilder } = require('stremio-addon-sdk');
+const { addonBuilder, getRouter } = require('stremio-addon-sdk');
 const manifest = {
 id: 'com.mycustom.scraper',
 version: '1.0.0',
@@ -23,5 +23,12 @@ url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBu
 }
 return Promise.resolve({ streams: [] });
 });
-const { getRouter } = require('stremio-addon-sdk');
-module.exports = getRouter(builder.getInterface());
+// The Vercel Safety Net
+const addonInterface = builder.getInterface();
+const router = getRouter(addonInterface);
+module.exports = function(req, res) {
+router(req, res, function() {
+res.statusCode = 404;
+res.end();
+});
+};
