@@ -24,4 +24,4 @@ url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBu
 return Promise.resolve({ streams: [] });
 });
 const { getRouter } = require('stremio-addon-sdk');
-module.exports = getRouter(builder);
+module.exports = getRouter(builder.getInterface());
